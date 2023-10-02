@@ -54,7 +54,7 @@ function showResult(e) {
 }
 
 function createMarkup(data) {
-  const imageMarkup = `<img src="${data[0].url}" alt="" width=400>`;
+  const imageMarkup = `<img src="${data[0].url}" alt="${data[0].breeds[0].name}" width=400>`;
 
   const breedMarkup = `<div style="max-width: 400px;">
   <h2>${data[0].breeds[0].name}</h2>
