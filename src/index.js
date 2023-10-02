@@ -44,26 +44,22 @@ function showResult(e) {
   return fetchCatByBreed(breedId)
     .then(data => {
       refs.loader.style.display = 'none';
-      const imageMarkup = `<img src="${data[0].url}" alt="" width=400>`;
-
-      const breedMarkup = 
-      `<div>
-      <h2>${data[0].breeds[0].name}</h2>
-      <p>Description: ${data[0].breeds[0].description}</p>
-      <p>Temperament: ${data[0].breeds[0].temperament}</p>
-      </div>`;
-      refs.catInfo.innerHTML = imageMarkup + breedMarkup;
-
-      console.log(data)
+      createMarkup(data);
     })
     .catch(error => {
       console.log(error);
       refs.loader.style.display = 'none';
       refs.error.style.display = 'block';
-
     });
 }
 
-// function createMarkup (){
+function createMarkup(data) {
+  const imageMarkup = `<img src="${data[0].url}" alt="" width=400>`;
 
-// }
+  const breedMarkup = `<div style="max-width: 400px;">
+  <h2>${data[0].breeds[0].name}</h2>
+  <p>Description: ${data[0].breeds[0].description}</p>
+  <p>Temperament: ${data[0].breeds[0].temperament}</p>
+  </div>`;
+  refs.catInfo.innerHTML = imageMarkup + breedMarkup;
+}
