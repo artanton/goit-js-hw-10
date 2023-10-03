@@ -1,11 +1,15 @@
 import { fetchCatByBreed, fetchBreeds } from './cat-api';
 
+
 export const refs = {
   select: document.querySelector('.breed-select'),
   loader: document.querySelector('.loader'),
   error: document.querySelector('.error'),
   catInfo: document.querySelector('.cat-info'),
 };
+
+
+
 
 refs.loader.style.display = 'none';
 refs.error.style.display = 'none';
@@ -19,12 +23,16 @@ refs.catInfo.style.top = '100px';
 function makeSelectOptions() {
   fetchBreeds()
     .then(data => {
+      refs.error.style.display = 'none';
       const selectMarkup = data
         .map(breed => {
           return `<option value=${breed.id}>${breed.name}</option>`;
         })
         .join(' ');
       refs.select.insertAdjacentHTML('beforeend', selectMarkup);
+      refs.select.style.display ='block';
+      
+      
     })
     .catch(error => {
       console.log(error);
@@ -39,17 +47,20 @@ export let breedId = '';
 
 function showResult(e) {
   breedId = e.target.value;
+  refs.error.style.display = 'none';
   refs.loader.style.display = 'block';
 
   return fetchCatByBreed(breedId)
     .then(data => {
       refs.loader.style.display = 'none';
+      refs.error.style.display = 'none';
       createMarkup(data);
     })
     .catch(error => {
       console.log(error);
       refs.loader.style.display = 'none';
       refs.error.style.display = 'block';
+      refs.catInfo.innerHTML =``;
     });
 }
 
