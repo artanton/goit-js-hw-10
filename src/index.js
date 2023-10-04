@@ -11,7 +11,7 @@ export const refs = {
 
 
 
-refs.loader.style.display = 'none';
+refs.loader.style.display = 'block';
 refs.error.style.display = 'none';
 refs.error.style.color = 'red';
 
@@ -24,12 +24,14 @@ function makeSelectOptions() {
   fetchBreeds()
     .then(data => {
       refs.error.style.display = 'none';
+      // refs.loader.style.display = 'block';
       const selectMarkup = data
         .map(breed => {
           return `<option value=${breed.id}>${breed.name}</option>`;
         })
         .join(' ');
       refs.select.insertAdjacentHTML('beforeend', selectMarkup);
+      refs.loader.style.display = 'none';
       refs.select.style.display ='block';
       
       
